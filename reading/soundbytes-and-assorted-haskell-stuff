@@ -1,0 +1,123 @@
+
+### HASKELL AND INIGO MONTOYA
+Haskell has classes. They have nothing to do with the classes in other languages.
+Haskell has a return statement. It has nothing to do with the return statement in other languages.
+Haskell has iteration, but it has no for loops and no while loops. The "forM" function is in a library!
+Haskell has functions, and they're infinitely more powerful than the functions in other languages.
+
+
+### A TECHNIQUE FOR THE LAZY EVALUATION OF RESEARCH PAPERS
+From: http://www.paulgraham.com/better.html
+"The first discovery I'd like to present here is an algorithm for lazy evaluation of research papers. Just write whatever you want and don't cite any previous work, and indignant readers will send you references to all the papers you should have cited."
+
+
+### THINKING ABOUT THE CATEGORY THEORETIC DEFINITION OF A MONAD
+A monad is a functor (construction) with two natural transformations: wrap and unwrap.
+They have to satisfy the following properties. Both basically say that we can wrap (or unwrap) in either order.
+Note: [] and {} and () all mean the same thing. The different notation is just to distinguish them visually.
+* unwrap axiom: ({[a]}) -> {[a]} -> [a] is the same as ({[a]}) -> ([a]) -> [a]
+* unwrap axiom: "unwrap_outside -> unwrap_outside" is the same as "unwrap_inside -> unwrap_outside"
+* wrap axiom: a -> [a] -> ([a]) is the same as a -> (a) -> ([a])
+* wrap axiom: "wrap_outside -> wrap_outside" is the same as wrap_outside -> wrap_inside
+
+
+### TYPE DECLARATIONS FOR BIND, FMAP, AND APPLICATIVE
+(>>=) :: Monad m => m a -> (a -> m b) -> m b
+(<$>) :: Functor f => (a -> b) -> f a -> f b
+(<*>) :: Applicative f => f (a -> b) -> f a -> f b
+
+
+### SIMPLE CONCEPTS AND THEIR HIGHER-ORDER COUNTERPARTS
+(*3) 2 == 6
+Just (*3) <*> Just 2 == Just 6
+
+(*) 3 2 == 6
+Just (*) <*> Just 3 <*> Just 2 == Just 6
+(*) <$> Just 3 <*> Just 2 == Just 6
+
+(\x -> 2*x) $ 3 == 6
+(\x -> Just (2*x)) =<< Just 3 == Just 6
+
+let x = 3 in 2*x == 6
+Just 3 >>= \x -> Just (2*x) == Just 6
+
+Other examples
+Just 3 >>= \x -> Just (2*x) >>= \y -> Just (y^2) == Just 36
+[(^2), (+4)] <*> [1,2,3] == [1,4,9,5,6,7]
+return 3 >>= Just == Just 3
+Just 3 >>= return == Just 3
+
+return and pure seem to be essentially identical
+return 3 :: Maybe Int == Just 3
+pure 3 :: Maybe Int == Just 3
+
+
+IF HASKELL WERE A WORKING GIRL
+
+From: http://www.xent.com/pipermail/fork/Week-of-Mon-20070219/044101.html
+
+And then there's Haskell...
+
+Haskell is like "that girl."  You know the one...
+
+You never really went steady, but you'd run into her from time to  
+time while knocking around in disreputable joints, usually late at  
+night, every several months or so.  She looked so hot, so sleek, so  
+sexy, so expressive, so exotic.  You'd end up back at her place and  
+the night would just...  take off.  A complete blur of hot, sweaty,  
+feverish, delirious, fumbling passion.  You'd do things to each  
+other...  you'd do things to her, she'd do things to you...  things  
+that you're not even sure have names, that you're pretty sure are  
+illegal almost anywhere.  Even her kinks have kinks --- and after one  
+of these nights, you'd realize that you yourself had a lot more kinks  
+than you.  And it wasn't just physical, it was --- cerebral.   
+Ethereal.  Transcendent.  But it would all whiz by in a blur, and by  
+morning you'd find yourself lightheaded, a bit confused, and  
+stumbling homeward to your regular gal.
+
+Over the next few days and weeks you'd find yourself occasionally  
+drifting away, thinking about her.  Haskell.  You'd be there, banging  
+away at your regular girl, and find yourself thinking "you know, if I  
+was with Haskell, I'd be doing this completely differently."  You'd  
+think "I could be doing so much bigger and better stuff with  
+Haskell."  Now, your regular girl, she's not as exotic as Haskell.   
+Pretty, maybe, if you're lucky.  (Perhaps your regular girlfriend's  
+name is Python. ;-)  But not nearly as --- weird.  Wild.  Cool.   
+Exciting.  Don't get me wrong --- your girl, she's wonderful.  You've  
+got a wonderful relationship.  She's --- comfortable.  You can bang  
+away at her all day and night.  She's accommodating.  Easy going.   
+You work well together.  But --- confidentially --- she's, well,  
+maybe just a little bit boring.  You'd catch yourself thinking these  
+things, and the guilty pangs would get to you...  You'd quash the  
+thoughts, buckle down, and get back to banging away.  Comfortable...   
+there's a lot to be said for that, ya know?  Comfortable...  just  
+keep telling yourself that.
+
+Months would go by.  Late some night you'd find yourself out,  
+disreputable places again.  Maybe that hacker bar, LtU.  Somebody'd  
+slip you an URL for some renegade paper, you know, one of *those*  
+papers.  You'd run into Haskell again.  And the whole thing starts over.
+
+Eventually, you're going to get the ultimatum.  Haskell's ultimately  
+just like any other girl on some level;  she needs commitment.   
+Eventually, after one night of wild, feverish, kinky, abstract  
+passion, she's going to say to you:  "All these times, and you don't  
+understand me at all!  You know, you're going to have to get serious,  
+mister!  I've got needs, too.  You're going to have to get serious  
+about my monads, or that's the last time you're going to play with  
+them!  Got it?"
+
+...and then, you've got to make The Choice.
+
+Chances are, you're going to go back to your regular gal.  Haskell's  
+just too much for any one man, probably.  She leaves a trail of  
+broken, brainy, embittered PhDs and former programmers behind her.   
+She ruins you for the RealWorld.  You can ride a while, but you  
+probably can't go the distance with her.  Go back to your regular gal  
+and try not to think too much about what you've seen.  Done.  Felt.   
+Thought.
+
+Maybe you can salvage a little happiness;  but it'll be hard.  After  
+all...  you've tasted Haskell.
+
+She's not like anything else.

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Integrate Hoogle into ghci
+# After doing the stuff below, typing ":hoogle" shows all matches, and 
+# typing ":doc" shows haddock documentation for the first match
+
+pacman -S cabal-install
+cabal install hoogle
+echo >> ~/.ghci ':def hoogle \x -> return $ ":!hoogle \"" ++ x ++ "\""'
+echo >> ~/.ghci ':def doc \x -> return $ ":!hoogle --info \"" ++ x ++ "\""'
